@@ -42,8 +42,11 @@ def _cmd_audit(ctx, raw_args):
 
 
 def _cmd_sast(ctx, raw_args):
-    target = (raw_args or ".").strip()
-    # Jalankan lewat tool 'terminal' agar melewati pipeline approval & redaksi Hermes.
+    target = (raw_args or ".").strip() or "."
+    # Perlakukan input HANYA sebagai path; tolak yang menyerupai opsi (option injection).
+    if target.startswith("-"):
+        return "Path tidak boleh diawali '-'. Contoh: /audit-sast ./src"
+    # shlex.quote menetralkan metakarakter shell; input tidak pernah mentah ke shell.
     return ctx.dispatch_tool(
         "terminal",
         {"command": f"semgrep --config=auto {shlex.quote(target)}"},
