@@ -1,0 +1,10 @@
+name: agent-skill
+version: 1.0.0
+manifest_version: 1
+author: HedyFake
+description: >
+  Auditor Keamanan Web defensif untuk Hermes — panduan audit kode sumber
+  (code-review/SAST) dan pengujian website milik sendiri (black-box/DAST),
+  mencakup kerentanan A-I (injection, XSS, RCE/SSRF/XXE, IDOR & auth, business
+  logic, CORS/CSRF, secrets, AI/LLM, user enumeration), plus arsenal tools.
+  Menambahkan slash command /audit dan /audit-sast.
