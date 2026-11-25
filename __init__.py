@@ -2,14 +2,18 @@
 
 Mendaftarkan slash command:
   /audit [codereview|blackbox|tools]  -> tampilkan panduan audit
-  /audit-sast [path]                  -> jalankan semgrep SAST (non-destruktif)
+  /audit-sast [path]                  -> jalankan semgrep SAST pada kode (non-destruktif)
+  /audit-url <url> [full]             -> pindai URL website (non-destruktif)
 
-Hanya untuk kode/aplikasi milik sendiri atau yang berizin.
+HANYA untuk kode/aplikasi milik sendiri atau yang berizin tertulis.
 """
+import shlex
 from pathlib import Path
+from urllib.parse import urlparse
 
 PLUGIN_DIR = Path(__file__).resolve().parent
 SKILLS_DIR = PLUGIN_DIR / "skills"
+SCANNER = PLUGIN_DIR / "scripts" / "scanner_kustom.py"
 
 # Peta argumen -> nama berkas panduan
 _PANDUAN = {
@@ -42,8 +46,60 @@ def _cmd_sast(ctx, raw_args):
     # Jalankan lewat tool 'terminal' agar melewati pipeline approval & redaksi Hermes.
     return ctx.dispatch_tool(
         "terminal",
-        {"command": f"semgrep --config=auto {target}"},
+        {"command": f"semgrep --config=auto {shlex.quote(target)}"},
     )
+
+
+def _url_valid(u):
+    try:
+        p = urlparse(u)
+        return p.scheme in ("http", "https") and bool(p.netloc)
+    except Exception:
+        return False
+
+
+def _cmd_url(ctx, raw_args):
+    """Pindai URL website secara non-destruktif.
+
+    /audit-url https://app-milikmu.com          -> scan dasar (scanner bawaan)
+    /audit-url https://app-milikmu.com full      -> + testssl/nikto/nuclei bila terpasang
+    """
+    bagian = (raw_args or "").split()
+    if not bagian:
+        return ("Pemakaian: /audit-url <url> [full]\n"
+                "Contoh: /audit-url https://app-milikmu.com\n"
+                "PERINGATAN: hanya untuk target milik sendiri / berizin tertulis.")
+
+    url = bagian[0]
+    mode = bagian[1].lower() if len(bagian) > 1 else "basic"
+    if not _url_valid(url):
+        return "URL tidak valid. Harus diawali http:// atau https:// dan punya host."
+
+    q = shlex.quote
+    url_q = q(url)
+
+    # Scan dasar: scanner bawaan plugin (non-destruktif, hanya butuh python3+requests).
+    cmd = f"echo '=== Scan non-destruktif untuk {url} (pastikan ini milikmu/berizin) ==='; "
+    cmd += f"python3 {q(str(SCANNER))} {url_q}"
+
+    if mode == "full":
+        # Tambahan tools DETEKSI (bukan eksploitasi). Dilewati otomatis bila tool tak ada.
+        cmd += (
+            f"; echo '--- testssl (TLS) ---'; "
+            f"command -v testssl.sh >/dev/null 2>&1 && testssl.sh --quiet {url_q} "
+            f"|| echo 'testssl.sh tidak terpasang, lewati'"
+            f"; echo '--- nikto ---'; "
+            f"command -v nikto >/dev/null 2>&1 && nikto -h {url_q} -maxtime 120s "
+            f"|| echo 'nikto tidak terpasang, lewati'"
+            f"; echo '--- nuclei (template deteksi) ---'; "
+            f"command -v nuclei >/dev/null 2>&1 && nuclei -u {url_q} -silent "
+            f"-severity low,medium,high,critical "
+            f"|| echo 'nuclei tidak terpasang, lewati'"
+        )
+        cmd += ("; echo '--- Catatan: tool injeksi aktif (sqlmap/commix) TIDAK "
+                "dijalankan otomatis. Jalankan manual sesuai /audit tools bila perlu. ---'")
+
+    return ctx.dispatch_tool("terminal", {"command": cmd})
 
 
 def register(ctx):
@@ -57,6 +113,11 @@ def register(ctx):
         "audit-sast",
         lambda raw: _cmd_sast(ctx, raw),
         description="Jalankan semgrep SAST pada path (default: .) — butuh semgrep terpasang",
+    )
+    ctx.register_command(
+        "audit-url",
+        lambda raw: _cmd_url(ctx, raw),
+        description="Pindai URL website non-destruktif: /audit-url <url> [full]",
     )
 
     # Opsional: daftarkan sebagai skill Hermes bila API tersedia. Dibungkus
