@@ -3,7 +3,7 @@
 Paket skill + arsenal tools untuk membantu agent AI (ChatGPT, Claude, dll.)
 melakukan **audit keamanan aplikasi web secara defensif**: memindai, menemukan,
 membuktikan, dan **memperbaiki** kerentanan pada aplikasi **milik sendiri**.
-
+ **Baca [`SKILL.md`](SKILL.md) sebelum memakai.** 
 > ⚠️ **Baca [`DISCLAIMER.md`](DISCLAIMER.md) sebelum memakai.** 
 
 ---
