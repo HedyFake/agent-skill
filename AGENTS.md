@@ -13,8 +13,8 @@ Baca dan ikuti:
 - `skills/audit-keamanan-web-blackbox.md` — saat menguji website hidup (black-box/DAST).
 - `skills/tools-keamanan-web.md` — arsenal tools per kategori + cara jalankan.
 
-## Yang boleh kamu jalankan di lingkungan ini
-Codex punya terminal sandbox, jadi untuk audit KODE repo ini kamu boleh:
+
+jadi untuk audit KODE repo ini kamu boleh:
 ```bash
 semgrep --config=auto .          # SAST multi-bahasa
 bandit -r .                      # jika Python
