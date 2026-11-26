@@ -9,16 +9,6 @@ version: 1.0
 Referensi tools untuk agent AI saat melakukan audit keamanan. Dipakai bersama
 skill code-review dan black-box.
 
-## ATURAN PEMAKAIAN (WAJIB)
-1. Jalankan tools HANYA ke target milik pengguna / yang berizin tertulis.
-2. Gunakan mode non-destruktif. Hindari: brute force masif, flooding/DoS, payload
-   yang menghapus/mengubah data, mass-exploit. PoC = pembuktian minimal.
-3. Ganti placeholder `TARGET`, `https://app-saya.com`, `./kode` dengan milik pengguna.
-4. Hormati `robots.txt` hanya sebagai info; tetap batasi laju (rate limit) agar tidak
-   membebani server produksi.
-5. Tools ini berjalan di terminal (idealnya Kali/Parrot/WSL/Docker) — **bukan** di dalam
-   ChatGPT. Pola kerja: pengguna/agent menjalankan tool di mesinnya, lalu AI membaca
-   output untuk menafsirkan & memverifikasi temuan.
 
 ---
 
