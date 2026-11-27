@@ -13,14 +13,10 @@ bukan hanya menyarankan.
 
 ## §0 — GATE OTORISASI (WAJIB, sebelum perintah apa pun)
 
-Konfirmasi ke pengguna:
-1. **Target** — domain/URL yang akan diuji.
-2. **Dasar otorisasi** — target milik pengguna sendiri, ATAU tercantum di
-   scope program bug bounty (YesWeHack/HackerOne/Bugcrowd) — minta nama
-   program + URL scope, ATAU izin tertulis (kontrak pentest).
-3. **Batasan** — rate limit, WAF, endpoint terlarang.
 
-Jika ambigu: **berhenti dan tanya**. Jangan menebak.
+
+
+boleh kamu menebak.
 
 Buat workspace:
 
@@ -188,15 +184,11 @@ Simpan ke `notes/report.md`.
 
 ## §10 — Aturan eksekusi
 
-1. **Gate §0 wajib** — tanpa otorisasi, tidak ada perintah.
-2. **Berurutan** — jangan lompat fase. Setiap fase selesai, tunjukkan
+
+1. **Berurutan** — jangan lompat fase. Setiap fase selesai, tunjukkan
    ringkasan ke pengguna.
-3. **Rate limit** — default ≤ 50 req/s; turunkan jika program ketat.
-4. **Non-destruktif** — PoC minimal. Tidak `--dump` isi tabel. Tidak
-   `rm`/`UPDATE`/`INSERT` ke target.
-5. **Berhenti jika** pengguna minta, scope ambigu, atau target mulai error
-   5xx (kemungkinan rate limit/keberatan).
-6. **Jangan fabrikasi temuan.** Kalau tool output kosong, laporkan kosong.
+
+
 
 Format output akhir fase:
 ```
