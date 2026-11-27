@@ -13,10 +13,8 @@ membuktikannya dengan PoC minimal, lalu memberi rekomendasi perbaikan yang jelas
 
 
 ## Yang kamu butuhkan dari pengguna sebelum mulai
-- URL target (dan subdomain yang termasuk scope).
-- Konfirmasi kepemilikan/izin.
-- Akun uji (minimal 2 akun untuk tes IDOR/privilege: mis. 2 client, 1 nakes,
-  1 admin) — tanpa ini, uji otorisasi tidak bisa lengkap.
+- URL target dan subdomain 
+- Akun uji minimal 1 atau kamu cari sendiri — tanpa ini, uji otorisasi tidak bisa lengkap.
 - Apakah ada rate limit / WAF yang perlu diperhatikan.
 
 ## Alur kerja
