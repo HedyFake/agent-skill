@@ -15,8 +15,7 @@ Slash commands:
   /bb-sast <path>                              - FASE 8: semgrep + bandit + njsscan
   /bb-all <domain>                             - cetak rencana workflow lengkap
 
-HANYA untuk target milik sendiri atau yang tercantum dalam scope program
-bug bounty (YesWeHack/HackerOne/Bugcrowd).
+
 """
 import re
 import shlex
