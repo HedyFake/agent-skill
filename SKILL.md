@@ -866,19 +866,7 @@ python3 scripts/scanner_kustom.py https://situs-mu.com
 
 ---
 
-## 8. Catatan Penting
 
-- **AI tidak menjalankan tools secara langsung ke target eksternal.**
-  ChatGPT & sejenisnya bersandbox tanpa akses jaringan bebas. Alur realistis:
-  **kamu** jalankan tool di mesinmu, AI menafsirkan hasilnya.
-- **Mode non-destruktif.** Jangan pakai payload yang menghapus/mengubah data,
-  brute force masif, atau DoS. PoC hanya untuk pembuktian.
-- **Aplikasi dengan data sensitif (mis. kesehatan/pasien):** uji di
-  staging/salinan dulu, bukan produksi.
-- **Integritas temuan.** Jangan laporkan bug palsu. Bug dianggap selesai
-  setelah diverifikasi fix.
-- **Untuk bug bounty (YesWeHack dll.):** hanya uji target dalam scope program.
-  Di luar scope = ilegal, bukan bug bounty.
 
 ---
 
@@ -896,7 +884,7 @@ Contoh:
 [LOW]      | / (header) | CWE-693 | header Content-Security-Policy hilang | tambahkan CSP ketat
 ```
 
-Tutup laporan dengan:
+Tutup laporan dengan table:
 1. Ringkasan jumlah per severity.
 2. Catatan temuan yang butuh keputusan arsitektur manusia.
 3. Status verifikasi: `terbukti` / `perlu reproduksi` / `false positive (dibuang)`.
