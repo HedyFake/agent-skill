@@ -1,7 +1,7 @@
 name: agent-skill
 version: 2.2.0
 manifest_version: 1
-author: HedyFake
+author: HackerEtisDetektifYangFokusAnalisisKeamananEsensial
 description: >
   Auditor Keamanan Web + Bug Bounty Workflow untuk Hermes. Menyediakan
   slash command /audit*, /audit-url, /audit-sast, dan rangkaian /bb-*
