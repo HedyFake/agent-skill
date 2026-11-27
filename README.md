@@ -53,15 +53,7 @@ Jalankan tools dari [`skills/tools-keamanan-web.md`](skills/tools-keamanan-web.m
 terminal (Kali/Parrot/WSL/Docker), lalu tempel output ke AI untuk ditafsirkan,
 diverifikasi, dan disusun jadi laporan + perbaikan.
 
-## ⚙️ Catatan penting
 
-- **AI tidak menjalankan tools secara langsung ke target eksternal.** ChatGPT & sejenisnya
-  bersandbox tanpa akses jaringan bebas. Alur realistis: **kamu** jalankan tool di mesinmu,
-  AI menafsirkan hasilnya. File skill sudah menulis alur ini.
-- **Mode non-destruktif.** Jangan pakai payload yang menghapus/mengubah data, brute force
-  masif, atau DoS. PoC hanya untuk pembuktian.
-- **Aplikasi dengan data sensitif (mis. kesehatan/pasien):** uji di staging/salinan dulu,
-  bukan produksi.
 
 ## 📋 Format laporan temuan
 
