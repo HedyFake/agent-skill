@@ -1,0 +1,11 @@
+name: agent-skill
+version: 2.2.0
+manifest_version: 1
+author: HedyFake
+description: >
+  Auditor Keamanan Web + Bug Bounty Workflow untuk Hermes. Menyediakan
+  slash command /audit*, /audit-url, /audit-sast, dan rangkaian /bb-*
+  (recon, paths, inject, xss, tls, sast) yang menjalankan tool keamanan
+  secara berurutan dan non-destruktif. Hanya untuk target milik sendiri
+  atau dalam scope program bug bounty (YesWeHack/HackerOne/Bugcrowd).
+license: MIT
